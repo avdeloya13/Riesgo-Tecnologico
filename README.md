@@ -1,1 +1,4 @@
-# Riesgo-Tecnol-gico
+# Riesgo-Tecnológico
+
+Histogramas realizados:
+ * 
