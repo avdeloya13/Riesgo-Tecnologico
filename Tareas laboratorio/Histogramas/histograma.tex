@@ -1,0 +1,151 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,mexico,es-lcroman]{babel}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{listingsutf8}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage[outline]{contour}
+\usepackage[dvipsnames]{xcolor}
+\geometry{tmargin=2cm, lmargin=2.5cm, rmargin=2.5cm, bmargin=2cm}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+\usepackage{blindtext}
+
+\usepackage{hyperref}
+
+\lstset{
+    inputencoding=utf8,
+    extendedchars=true,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    }
+    
+\urlstyle{same}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Universidad Nacional Autónoma de México\\Facultad de Ciencias\\\bigskip Riesgo Tecnológico 2025-1\\\bigskip Profesora: Selene Marisol Martínez Ramírez\\Ayudantes: \\César Eduardo Jardines Mendoza\\ Itzel Azucena Delgado Díaz\\ Luis Angel Rojas Espinoza\\ Luis Rey Rutiaga Robles \\\bigskip Tarea:  Histogramas}
+
+\author{\textbf{INTEGRANTES:} \bigskip \\ Deloya Andrade Ana Valeria \\ Cortés Jiménez Carlos Daniel \\ Cruz Gonzalez Irvin Javier \\ Castro Reyes Angel \\ Cruz Blanco Gabriela}
+\date{29 de Septiembre 2024}
+
+\begin{document}
+
+\maketitle
+ 
+\section{Histogramas}
+
+\begin{itemize}
+    \item \textbf{Histograma del tipo de transacción y el estado de la transacción fraudolenta (Cuantos estados de transacciones fraudolentas tuvieron las transacciones purchase y transfer):}
+
+    El código usado fue el siguiente:
+
+    \begin{lstlisting}[language=Python, caption=Implementación DES(Data Encryption Standard)]
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import matplotlib.patches as mpatches
+
+    # Cargar el CSV
+    data = pd.read_csv('transacciones.csv')
+
+    # Filtrar para obtener solo transacciones fraudulentas
+    fraudulent_transactions = data[data['status'] == 'fraudulent']
+
+    # Formato para extraer solo la compra y transfrencia de la columna 'purchase' y 'transfer'
+    fraudulent_transactions_filtered = fraudulent_transactions[
+        (fraudulent_transactions['transaction_type'] == 'purchase') | 
+        (fraudulent_transactions['transaction_type'] == 'transfer')
+    ]
+
+    # Añadimos un estilo a la gráfica
+    sns.set(style="whitegrid")
+
+    #Se define y se crea la gráfica
+    plt.figure(figsize=(10, 6)) 
+    colors = ["#FF6F61", "#6B5B95"]
+
+    # Personalizamos las barras
+    sns.histplot(
+        data=fraudulent_transactions_filtered, 
+        x='transaction_type', 
+        hue='status', 
+        multiple='stack', 
+        palette=colors,
+        shrink=0.8,  
+        edgecolor='black'  
+    )
+
+    #Titulos
+    plt.title('Cantidad de transacciones fraudulentas por tipo de transacción', fontsize=16, fontweight='bold')
+    plt.xlabel('Tipo de transacción', fontsize=14)
+    plt.ylabel('Cantidad de transacciones fraudulentas', fontsize=14)
+
+    # Perzonalizamos los ejes
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+
+    # Cuadrícula en la gráfica 
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+    # Crear la leyenda "Fraudulentas"
+    fraud_patch = mpatches.Patch(color='#FF6F61', label='Fraudulentas')
+
+    #Mostramos la gráfica
+    plt.legend(handles=[fraud_patch], title='Estado', loc='upper right', fontsize=12)
+    plt.tight_layout()
+    plt.show()
+    \end{lstlisting}
+
+    También se adjuntara el archivo .py, abrimos nuestra terminal y ejecutamos \textbf{python3 histograma3.py} y la gráfica resultante es la siguiente:
+
+    \begin{center}
+        \includegraphics[scale = .4]{IMAGE/Histograma3.png}
+    \end{center}
+
+    Podemos ver que que la cantidade transaccines de tipo ''purchase'' es más alta que las de ''transfer'',  esto nos puede decir que los sistemas de compra son mas propensos a que sean atacados, siendo que podría haber vulnerabilidades en la seguridad al realizar una compra y así haber menos control en esta área en comparación con las transferencias, por lo que los estafadores prefieren realizar fraudes mediante compras ya que les sería mas sencillo el poder realizar una acción fraudolenta entre las transacciones legítimas, ya que si realizan el fraude en transferencias esto pueder más fácil de rastrear.
+
+    \item 
+
+    \item 
+
+    \item 
+
+    \item 
+    
+\end{itemize}
+
+{\color{black}\rule{\textwidth}{1.5pt}}
+
+\end{document}

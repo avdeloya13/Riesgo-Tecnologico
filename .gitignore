@@ -1,0 +1,5 @@
+#Ignorar archivos de compilacion generados por latex
+
+**/*.aux
+**/*.log
+**/*.out
