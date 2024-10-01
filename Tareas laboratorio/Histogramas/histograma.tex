@@ -55,15 +55,9 @@
 }
 \lstset{style=mystyle}
 
-\title{Universidad Nacional Autónoma de México \\\bigskip Facultad de Ciencias \\\bigskip Riesgo Tecnológico 2025-1 \\\bigskip \textbf{Histogramas}}
+\title{Universidad Nacional Autónoma de México \\\bigskip Facultad de Ciencias \\\bigskip Riesgo Tecnológico 2025-1 \\\bigskip \textbf{Laboratorio: Histogramas}}
 
-\author{
-%\textbf{Profesora:} Selene Marisol Martínez Ramírez \\\bigskip 
-%\textbf{Ayudantes:} \\\bigskip  César Eduardo Jardines Mendoza \\\bigskip 
-%Itzel Azucena Delgado Díaz \\\bigskip 
-%Luis Angel Rojas Espinoza \\\bigskip 
-%Luis Rey Rutiaga Robles \\\bigskip 
-\textbf{INTEGRANTES:} \\\bigskip Deloya Andrade Ana Valeria \\\bigskip Cortés Jiménez Carlos Daniel \\\bigskip Cruz Gonzalez Irvin Javier \\\bigskip Castro Reyes Angel \\\bigskip Cruz Blanco Gabriela}
+\author{\textbf{Profesora:} \\\bigskip Selene Marisol Martínez Ramírez \\\bigskip \textbf{Ayudantes:} \\\bigskip  César Eduardo Jardines Mendoza \\\bigskip Itzel Azucena Delgado Díaz \\\bigskip Luis Angel Rojas Espinoza \\\bigskip Luis Rey Rutiaga Robles \\\bigskip \textbf{INTEGRANTES:} \\\bigskip Deloya Andrade Ana Valeria \\\bigskip Cortés Jiménez Carlos Daniel \\\bigskip Cruz Gonzalez Irvin Javier \\\bigskip Castro Reyes Angel \\\bigskip Cruz Blanco Gabriela}
 
 \begin{document}
 
@@ -78,7 +72,74 @@
 
     \item \textbf{Histograma de la distribución de nuevos usuarios con una transacción fraudolenta (Cuantos usuarios nuevos tuvieron una transacción fraudolenta vs los usuarios que no son nuevos):}
 
-    \item \textbf{Histograma del tipo de transacción y el estado de la transacción fraudolenta (Cuantos estados de transacciones fraudolentas tuvieron las transacciones purchase y transfer):}
+    A continuación se muestra la implementación de este histograma, para ejercutarlo basta con colocar en terminal el comando \textbf{python3 histograma2.py}:
+
+    \begin{lstlisting}[language=Python, caption=Implementación DES(Data Encryption Standard)]
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        import matplotlib.patches as mpatches
+        
+        # Cargar el CSV
+        data = pd.read_csv('transacciones.csv')
+        
+        # Filtra para obtener solo transacciones fraudulentas
+        fraudulent_transactions = data[data['status'] == 'fraudulent']
+        
+        # Formato para extraer la informacion para las columnas de los usuarios no nuevos y nuevos
+        fraudulent_transactions_users = fraudulent_transactions[
+            (fraudulent_transactions['new_user'] == True) | 
+            (fraudulent_transactions['new_user'] == False)]
+        
+        # Se añade un estilo a la gráfica
+        sns.set(style="whitegrid")
+        
+        # Se define y se crea la gráfica
+        plt.figure(figsize=(10, 6)) 
+        colors = ["#73a13f", "#73a13f"]
+        
+        # Personalizamos las barras
+        sns.histplot(
+            data=fraudulent_transactions_users, 
+            x='new_user', 
+            hue='new_user',  
+            multiple='stack', 
+            palette=colors,
+            shrink=7.5,  
+            edgecolor='black')
+        
+        # Titulos
+        plt.title('Cantidad de transacciones fraudulentas por tipo de usuario', fontsize=16, fontweight='bold')
+        plt.xlabel('Tipo de usuario', fontsize=14)
+        plt.ylabel('Cantidad de transacciones fraudulentas', fontsize=14)
+        
+        # Perzonalizamos los ejes
+        plt.xticks([0, 1], ['Non New', 'New'], fontsize=12) 
+        plt.yticks(fontsize=12)
+        
+        # Cuadrícula en la gráfica 
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        
+        # Crear la leyenda "Fraudulentas" de Estado
+        new_patch = mpatches.Patch(color='#73a13f', label='Fraudulentas')
+        
+        # Muestra la gráfica
+        plt.legend(handles=[new_patch], title='Estado', loc='upper right', fontsize=12)
+        plt.tight_layout()
+        plt.show()
+    \end{lstlisting}
+
+    El histograma es el siguiente:
+
+    \begin{center}
+        \includegraphics[scale = .4]{IMAGE/Histograma2.png}
+    \end{center}
+
+    Si bien hay una cantidad significativa de transacciones fraudolentas realizadas por los usuarios nuevos, existe una mayor cantidad realizada por aquellos usuarios que no son nuevos. Esto puede deberse a varios factores como que este sector de los usuarios tiene más experiencia y conocimiento en el manejo del sistema.
+
+    Con la información recabada en este histograma puede tomarse medidas como la implementación de un mayor monitoreo y análisis del comportamiento en usuarios que ya llevan tiempo utilizando el servicio cuando estos llevan a cabo transacciones. Utilizando así los datos recabados para reforzar la seguridad del sistema de manera eficiente.
+
+    \item \textbf{Histograma del tipo de transacción y el estado de la transacción fraudolenta (Cuántos estados de transacciones fraudolentas tuvieron las transacciones purchase y transfer):}
 
     El código usado fue el siguiente:
 
