@@ -70,7 +70,7 @@
 \begin{itemize}
     \item \textbf{Histograma del monto de las transacciones por hora del día con estado fraudolento de nuevos usuarios (Cuanto dinero históricamente se ha perdido más en las 24 horas del día):}
 
-        A continuación se muestra la implementación de este histograma, para ejecutarlo basta con colocar en terminal el comando \textbf{python3 histograma_fraudulento.py}:
+        A continuación se muestra la implementación de este histograma, para ejecutarlo basta con colocar en terminal el comando \textbf{python3 histograma.py}:
 
         \begin{lstlisting}[language=Python, caption=Implementación del Histograma del monto de transacciones por hora del día]
             import pandas as pd
@@ -138,6 +138,10 @@
         \begin{center}
             \includegraphics[scale=0.5]{IMAGE/histograma1.png}
         \end{center}
+
+        Este histograma permite visualizar las horas en las que se realizan más transacciones fraudulentas en términos de monto, lo cual puede proporcionar información valiosa para ajustar las medidas de seguridad y monitorear con más detalle ciertas horas críticas del día.
+
+        En términos de análisis de riesgos, si el histograma muestra un pico durante ciertas horas (por ejemplo, entre la medianoche y las 3:00 a.m.), puede indicar que los atacantes prefieren operar en esos momentos, lo que lleva a la implementación de controles adicionales durante esas horas.
 
     \item \textbf{Histograma de la distribución de nuevos usuarios con una transacción fraudolenta (Cuantos usuarios nuevos tuvieron una transacción fraudolenta vs los usuarios que no son nuevos):}
 
