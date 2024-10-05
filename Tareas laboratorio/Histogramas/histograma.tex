@@ -70,7 +70,7 @@
 \begin{itemize}
     \item \textbf{Histograma del monto de las transacciones por hora del día con estado fraudolento de nuevos usuarios (Cuanto dinero históricamente se ha perdido más en las 24 horas del día):}
 
-        A continuación se muestra la implementación de este histograma, para ejecutarlo basta con colocar en terminal el comando \textbf{python3 histograma.py}:
+        A continuación se muestra la implementación de este histograma, para ejecutarlo basta con colocar en terminal el comando \textbf{python3 histograma1.py}:
 
         \begin{lstlisting}[language=Python, caption=Implementación del Histograma del monto de transacciones por hora del día]
             import pandas as pd
@@ -281,6 +281,9 @@
     Podemos ver que que la cantidad de transaccines de tipo ''purchase'' es más alta que las de ''transfer'',  esto nos puede decir que los sistemas de compra son mas propensos a que sean atacados, siendo que podría haber vulnerabilidades en la seguridad al realizar una compra y así haber menos control en esta área en comparación con las transferencias, por lo que los estafadores prefieren realizar fraudes mediante compras ya que les sería mas sencillo el poder realizar una acción fraudolenta entre las transacciones legítimas, ya que si realizan el fraude en transferencias esto pueder más fácil de rastrear.
 \newpage
     \item \textbf{Histograma de los meses con transacciones fraudolentas:}
+
+    A continuación se muestra la implementación de este histograma, para ejercutarlo basta con colocar en terminal el comando \textbf{python3 histograma5.py}:
+
       \begin{lstlisting}[language=Python, caption=Implementación histograma de los meses con transacciones fraudolentas.]
         import pandas as pd
         import matplotlib.pyplot as plt
