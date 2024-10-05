@@ -1,17 +1,19 @@
 import pandas as pd
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.patches as mpatches
 
-# Cargar el CSV con las transacciones
+# Cargar el archivo CSV
 data = pd.read_csv('transacciones.csv')
 
-# Filtrar para obtener solo transacciones fraudulentas de nuevos usuarios
-fraudulent_transactions_new_users = data[(data['status'] == 'fraudulent') & (data['new_user'] == True)]
+# Crear una nueva columna combinando 'date' y 'time'
+data['transaction_time'] = pd.to_datetime(data['date'] + ' ' + data['time'], format='%d/%m/%Y %H:%M')
 
-# Extraer la hora del día de la columna de fecha y hora (ajustar el nombre de la columna según sea necesario)
-fraudulent_transactions_new_users['hour'] = pd.to_datetime(fraudulent_transactions_new_users['transaction_time']).dt.hour
+# Filtrar para obtener solo transacciones fraudulentas de nuevos usuarios
+fraudulent_transactions_new_users = data.loc[(data['status'] == 'fraudulent') & (data['new_user'] == True)]
+
+# Extraer la hora del día de la columna 'transaction_time'
+fraudulent_transactions_new_users.loc[:, 'hour'] = fraudulent_transactions_new_users['transaction_time'].dt.hour
 
 # Añadimos un estilo a la gráfica
 sns.set(style="whitegrid")
@@ -45,7 +47,12 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 # Crear la leyenda "Fraudulentas"
 fraud_patch = mpatches.Patch(color='#FF6F61', label='Fraudulentas')
 
-# Mostrar la gráfica
+# Guardar la gráfica como imagen en lugar de mostrarla
 plt.legend(handles=[fraud_patch], title='Estado', loc='upper right', fontsize=12)
 plt.tight_layout()
-plt.show()
+
+# Guardar la gráfica en un archivo PNG
+plt.savefig('IMAGE/histograma1.png')
+
+# Si estás ejecutando en un entorno interactivo, usa plt.show() en lugar de guardar.
+# plt.show()
