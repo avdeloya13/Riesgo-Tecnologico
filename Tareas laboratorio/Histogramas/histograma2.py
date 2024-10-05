@@ -48,7 +48,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 # Crear la leyenda "Fraudulentas" de Estado
 new_patch = mpatches.Patch(color='#73a13f', label='Fraudulentas')
 
-# Muestra la gráfica
+# Para mostrar la gráfica
 plt.legend(handles=[new_patch], title='Estado', loc='upper right', fontsize=12)
 plt.tight_layout()
 plt.show()

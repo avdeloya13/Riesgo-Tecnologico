@@ -10,7 +10,7 @@ data = pd.read_csv('transacciones.csv')
 data['transaction_time'] = pd.to_datetime(data['date'] + ' ' + data['time'], format='%d/%m/%Y %H:%M')
 
 # Filtrar para obtener solo transacciones fraudulentas de nuevos usuarios
-fraudulent_transactions_new_users = data.loc[(data['status'] == 'fraudulent') & (data['new_user'] == True)]
+fraudulent_transactions_new_users = data.loc[(data['status'] == 'fraudulent') & (data['new_user'] == True)].copy()
 
 # Extraer la hora del día de la columna 'transaction_time'
 fraudulent_transactions_new_users.loc[:, 'hour'] = fraudulent_transactions_new_users['transaction_time'].dt.hour
@@ -54,5 +54,4 @@ plt.tight_layout()
 # Guardar la gráfica en un archivo PNG
 plt.savefig('IMAGE/histograma1.png')
 
-# Si estás ejecutando en un entorno interactivo, usa plt.show() en lugar de guardar.
-# plt.show()
+plt.show()
