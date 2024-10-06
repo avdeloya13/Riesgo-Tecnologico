@@ -9,3 +9,5 @@ Histogramas realizados numerados en el orden en que aparecen en el pdf subido po
  3- Histograma del tipo de transacción y el estado de la transacción fraudolenta (Cuántos estados de transacciones fraudolentas tuvieron las transacciones purchase y transfer).
  
  5- Histograma de los meses con transacciones fraudolentas.
+
+ 6- Histograma del monto perdido por mes por transacciones de tipo purchase con estado fraudolenta
