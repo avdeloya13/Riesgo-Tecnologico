@@ -1,11 +1,10 @@
-# Riesgo-Tecnológico
+# CyberLink
 
-Histogramas realizados numerados en el orden en que aparecen en el pdf subido por el ayudante:
- 
- 1- Histograma del monto de las transacciones por hora del día con estado fraudolento de nuevos usuarios (Cuánto dinero históricamente se ha perdido más en las 24 horas del día).
+Repositorio dedicado para el almacenamiento de practicas tareas y proyecto de la optativa Riesgo Tecnólogico 2025-1
 
- 2- Histograma de la distribución de nuevos usuarios con una transacción fraudolenta (Cuántos usuarios nuevos tuvieron una transacción fraudolenta vs los usuarios que no son nuevos).
-
- 3- Histograma del tipo de transacción y el estado de la transacción fraudolenta (Cuántos estados de transacciones fraudolentas tuvieron las transacciones purchase y transfer).
- 
- 5- Histograma de los meses con transacciones fraudolentas.
+## Integrantes
+- Castro Reyes Ángel
+- Cortés Jiménez Carlos Daniel
+- Cruz Blanco Gabriela
+- Cruz Gonzalez Irvin Javier
+- Deloya Andrade Valeria
