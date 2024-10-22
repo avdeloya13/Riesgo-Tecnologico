@@ -327,7 +327,80 @@
     De acuerdo al histograma se puede indicar que los fraudes son más comunes durante la segunda mitad del año, especialmente entre julio y septiembre, lo que podría coincidir 
     con eventos estacionales o períodos específicos de mayor actividad económica o comercial. Después del máximo, los fraudes disminuyen progresivamente hacia diciembre.
 
-    \item 
+\newpage 
+\item \textbf{Histograma del monto perdido por mes por transaccines de tipo purchase con estado fraudolenta:}
+
+A continuación se muestra la implementación de este histograma, para que se ejecute vamos a colocar en terminal el comando \textbf{python3 histograma6.py}:
+
+  \begin{lstlisting}[language=Python, caption= Implementación histograma del monto perdido por mes por transaccines de tipo purchase con estado fraudolenta.]
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import matplotlib.patches as mpatches
+    
+    # Cargar el archivo CSV
+    data = pd.read_csv('transacciones.csv')
+    
+    # Crear una nueva columna combinando 'date' y 'time'
+    data['transaction_time'] = pd.to_datetime(data['date'] + ' ' + data['time'], format='%d/%m/%Y %H:%M')
+    
+    # Filtrar transacciones fraudulentas de tipo purchase
+    fraudulent_purchase_transactions = data.loc[(data['status'] == 'fraudulent') & 
+                                                (data['transaction_type'] == 'purchase')].copy()
+    
+    # Extraer el mes de la columna 'transaction_time'
+    fraudulent_purchase_transactions['month'] = fraudulent_purchase_transactions['transaction_time'].dt.month
+    
+    # Añadimos un estilo a la gráfica
+    sns.set(style="whitegrid")
+    
+    # Se define y se crea la gráfica
+    plt.figure(figsize=(10, 6))
+    colors = ["#FF6F61"]
+    
+    # Crear el histograma con el monto por mes
+    sns.histplot(
+        data=fraudulent_purchase_transactions,
+        x='month', 
+        weights='amount',  # Aquí el peso será el monto de la transacción
+        bins=12,  # Una barra por cada mes
+        color=colors[0],
+        edgecolor='black'
+    )
+    
+    # Títulos y etiquetas
+    plt.title('Monto perdido por mes en transacciones "purchase" fraudulentas', fontsize=16, fontweight='bold')
+    plt.xlabel('Mes del año', fontsize=14)
+    plt.ylabel('Monto total de transacciones fraudulentas', fontsize=14)
+    
+    # Personalizamos los ejes
+    plt.xticks(range(1, 13), ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'], fontsize=12)
+    plt.yticks(fontsize=12)
+    
+    # Cuadrícula en la gráfica
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    
+    # Crear la leyenda "Fraudulentas"
+    fraud_patch = mpatches.Patch(color='#FF6F61', label='Fraudulentas')
+    
+    # Guardar la gráfica como imagen en lugar de mostrarla
+    plt.legend(handles=[fraud_patch], title='Estado', loc='upper right', fontsize=12)
+    plt.tight_layout()
+    
+    # Guardar la gráfica en un archivo PNG
+    plt.savefig('IMAGE/histograma6.png')
+    
+    plt.show()
+\end{lstlisting}
+
+ \begin{center}
+    \includegraphics[scale = .3]{IMAGE/histograma6.png}
+\end{center}
+
+Se observa que los meses de julio y agosto presentan el mayor número de fraudes, mientras que enero, noviembre y diciembre tienen los niveles más bajos. 
+Entre enero y mayo, los montos se mantienen estables, pero a partir de junio se da un aumento significativo que culmina en agosto, seguido de una disminución en septiembre. 
+Aunque las compras de fin de año suelen ser altas, noviembre y diciembre registran menos fraudes, lo que podría estar relacionado con medidas preventivas o cambios en el comportamiento de los consumidores.
+
     
 \end{itemize}
 
