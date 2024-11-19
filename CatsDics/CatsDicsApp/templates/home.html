@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hábitos</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'my_app/css/styless.css' %}">
+</head>
+<body>
+    <div class="container-fluid">
+        
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/habitos/lista_habitos/">
+                    <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
+                    <span>{% if username %}{{ username }}{% endif %}</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/home">INICIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/habitos/lista_habitos/">HÁBITOS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/habitos/estadisticas/">ESTADÍSTICAS</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle position-relative" href="#" id="notificacionesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                NOTIFICACIÓN
+                                {% if notificaciones_no_leidas %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ notificaciones_no_leidas|length }}
+                                    </span>
+                                {% endif %}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificacionesDropdown">
+                                {% if notificaciones %}
+                                    {% for notif in notificaciones %}
+                                        <li>
+                                            <a class="dropdown-item {% if not notif.leido %}fw-bold{% endif %}" 
+                                                href="#" 
+                                                onclick="marcarComoLeida({{ notif.id }}, this); return true">
+                                                {{ notif.mensaje }}
+                                                <small class="text-muted d-block">
+                                                    {{ notif.fecha_creacion|date:"d/m/Y H:i" }}
+                                                </small>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li><span class="dropdown-item">No hay notificaciones</span></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">CERRAR SESIÓN</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header class="text-center py-5 header-image" style="background-image: url('{% static "my_app/images/header-image.png" %}');">
+            <h1 class="display-4 text-white">Hábitos</h1>
+        </header>
+
+        <div class="row justify-content-center my-4">
+            <div class="col-md-6">
+                
+            </div>
+        </div>
+
+
+        <div class="row text-center cards" >
+            <div class="col-md-4 mb-4">
+                <div class="card habit-card">
+                    <img src="{% static 'my_app/images/ilustracion.png' %}" alt="Categoría" class="card-img-top">
+                    <div class="card-body">
+                        <a href="/habitos/estadisticas" class="btn btn-dark habit-btn">Estadísticas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card habit-card">
+                    <img src="{% static 'my_app/images/crear.jpg' %}" alt="Crear" class="card-img-top">
+                    <div class="card-body">
+                        <a href="/habitos/crear_habito/" class="btn btn-dark habit-btn">Crear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card habit-card">
+                    <img src="{% static 'my_app/images/objetivos.png' %}" alt="Objetivos" class="card-img-top">
+                    <div class="card-body">
+                        <a href="/habitos/lista_habitos/" class="btn btn-dark habit-btn">Lista de hábitos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        function marcarComoLeida(notifId, element) {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch('/habitos/marcar_notificacion_leida/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({
+                notificacion_id: notifId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                element.closest('li').remove(); // Remueve la notificación del dropdown
+                element.classList.remove('fw-bold'); // Remueve la clase que indica que es nueva
+            
+                // Actualizar el contador de notificaciones
+                const badge = document.querySelector('#notificacionesDropdown .badge');
+                if (badge) {
+                    const currentCount = parseInt(badge.textContent) - 1;
+                    if (currentCount > 0) {
+                        badge.textContent = currentCount; // Actualiza el contador
+                    } else {
+                        badge.remove(); // Elimina el badge si llega a 0
+                    }
+                }
+            }
+        });
+    }
+    </script>
+</body>
+</html>

@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from CatsDics.views import hello
+from CatsDics.views import home, CustomLoginView, register, homeLogin, log_Out
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', hello )
+    path('',home, name="home"),
+    path('home/', homeLogin, name="homeLogin"),
+    
+     # Login, registro y logout
+    path('login/', CustomLoginView.as_view(), name="login"),
+    path('register/', register, name="register"),
+    path('logout/', log_Out, name='logout')
 ]

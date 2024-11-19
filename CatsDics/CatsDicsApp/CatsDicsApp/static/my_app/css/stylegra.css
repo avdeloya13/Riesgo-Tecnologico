@@ -1,0 +1,50 @@
+.header-image h1 {
+    font-weight: bold; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
+    color: #c3c6c7; 
+    font-size: 4rem; 
+}
+
+body {
+    background-color: #4a6074; 
+    color: #c3c6c7;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: transparent; 
+    border-bottom: 4px solid #c3c6c7; 
+    margin-bottom: 20px;
+}
+
+.navbar-brand, .nav-link {
+    color: #c3c6c7;
+    font-weight: bold;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #ddd;
+}
+
+.header-image {
+    background-image: url("{% static 'my_app/images/header-image.png' %}"); 
+    background-size: cover;
+    background-position: center;
+}
+
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.chart-wrapper {
+    width: 45%;
+    position: relative;
+    padding: 10px;
+}
+
+.chartjs-label, .chartjs-tooltip {
+    color: white !important;
+}
