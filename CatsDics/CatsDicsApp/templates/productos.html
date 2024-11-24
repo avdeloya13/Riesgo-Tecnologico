@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -42,13 +41,15 @@
                 <button class="btn btn-light me-1">
                     <i class="fas fa-basket-shopping fa-lg text-white mx-2"></i>
                 </button>
-                <button class="btn btn-light">
-                    Cerrar sesión
-                </button>
+                <form action="{% url 'logout' %}" method="POST" style="margin: 0;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-light">
+                        Cerrar sesión
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
-
     <div class="container mt-4">
         <div class="row g-4">
             <div class="col-md-6">
@@ -85,7 +86,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

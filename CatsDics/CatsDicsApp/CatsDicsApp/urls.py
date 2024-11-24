@@ -29,3 +29,4 @@ urlpatterns = [
     path('register/', register, name="register"),
     path('logout/', log_Out, name='logout')
 ]
+
