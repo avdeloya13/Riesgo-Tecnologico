@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-custom-turquoise {
+            background-color: #40E0D0 !important;
+        }
+        .nav-custom {
+            background-color: #40E0D0;
+            padding: 1rem;
+        }
+        .card-body {
+            background-color: #40E0D0;
+            padding: 2rem;
+        }
+        .dropdown-menu {
+            background-color: #f0f0f0;
+        }
+    </style>
+    <title>Categorías de Productos</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand nav-custom">
+        <div class="container">
+            <div class="dropdown">
+                <button class="btn btn-light" type="button">
+                    Categorías
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Albums</a></li>
+                    <li><a class="dropdown-item" href="#">Aristas</a></li>
+                    <li><a class="dropdown-item" href="#">Géneros</a></li>
+                </ul>
+            </div>
+            <div class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Buscar...">
+                <button class="btn btn-light me-1">
+                    <i class="fas fa-basket-shopping fa-lg text-white mx-2"></i>
+                </button>
+                <button class="btn btn-light">
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body position-relative">
+                        <span class="position-absolute top-0 end-0 badge bg-danger m-2">$</span>
+                        <img src="{% static 'my_app/images/ts.jpg' %}" alt="1989" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body position-relative">
+                        <span class="position-absolute top-0 end-0 badge bg-danger m-2">$</span>
+                        <img src="{% static 'my_app/images/cat_book.png' %}" alt="Discos" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body position-relative">
+                        <span class="position-absolute top-0 end-0 badge bg-danger m-2">$</span>
+                        <img src="/api/placeholder/400/300" alt="Oso de peluche" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body position-relative">
+                        <span class="position-absolute top-0 end-0 badge bg-danger m-2">$</span>
+                        <img src="/api/placeholder/400/300" alt="Auriculares" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

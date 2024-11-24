@@ -11,19 +11,24 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <style>
-        .logo-container {
-            position: relative;
-        }
-        .logo-container img:first-child {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200px;
-            height: auto;
-        }
         .password-wrapper {
             position: relative;
         }
+
+        :root {
+                --custom-turquoise: #40E0D0;
+            }
+            
+            .text-custom {
+                color: var(--custom-turquoise) !important;
+            }
+            
+            .btn-custom {
+                background-color: var(--custom-turquoise);
+                border-color: var(--custom-turquoise);
+                color: white;
+            }
+
         .password-wrapper .fa-eye {
             position: absolute;
             top: 50%;
@@ -38,15 +43,14 @@
        <div class="row" style="height: 100vh;">
            <div class="col-md-6 left-side d-flex align-items-center justify-content-center">
                <div class="text-center logo-container">
-                   <img src="{% static 'my_app/images/logo.png' %}" alt="Software Borcelle" class="img-fluid mb-4">
-                   <img src="{% static 'my_app/images/illustration.png' %}" alt="Ilustración" class="img-fluid">
+                <img src="{% static 'my_app/images/cat_book.png' %}" alt="Software Borcelle" class="img-fluid mb-4">
                </div>
            </div>
            
            <div class="col-md-6 right-side d-flex align-items-center justify-content-center">
                <div class="w-75">
-                   <h2 class="text-center">¡Crea tu cuenta!</h2>
-                   <img src="{% static 'my_app/images/Icon.png' %}" alt="Icon" class="img-fluid mx-auto d-block">
+                   <h2 class="text-center"> <span style="color: #2EC4B6;">CATSDICS</span></h2>
+                   <h3 class="text-center">Ingresa tus datos para registrarte</h3>
                    
                    <form method="POST">
                         {% csrf_token %}
@@ -64,7 +68,7 @@
                            <input type="password" class="form-control" id="confirm-password" name="password2" placeholder="Confirme su contraseña">
                            <i class="fa-solid fa-eye" id="toggleConfirmPassword"></i>
                        </div>
-                       <button type="submit" class="btn btn-primary btn-lg w-100">Registrarse</button>
+                       <button type="submit" class="btn btn-custom btn-lg w-100">Registrarse</button>
                    </form>
                    <div class="mt-3 text-center">
                        <a href="/" class="text-light">¿Ya tienes una cuenta? Inicia sesión</a>

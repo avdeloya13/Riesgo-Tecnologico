@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     if request.user.is_authenticated:
         return redirect('homeLogin')  # Si ya inicio sesion manda al usuario de nuevo a HomeLogin
-    return render(request, "login.html")
+    return render(request, "home.html")
 
 @login_required
 def homeLogin(request):
@@ -56,3 +56,21 @@ def register(request):
         form = CustomUserCreationForm()
 
     return render(request, 'register.html', {'form': form})
+
+def login(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('homeLogin')
+        else:
+            print(form.errors)
+    else:
+        form = CustomUserCreationForm()
+
+    return render(request, 'login', {'form': form})
+
+def productos(request):
+    # Add your view logic here
+    return render(request, 'productos.html')
