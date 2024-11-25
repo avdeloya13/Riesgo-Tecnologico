@@ -21,7 +21,9 @@ from CatsDics.views import home, CustomLoginView, register, homeLogin, log_Out, 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home, name="home"),
+    #Página princiapl
     path('home/', homeLogin, name="homeLogin"),
+    #Página inical para visualizar los productos
     path('productos/', productos, name='productos'),
     
      # Login, registro y logout
